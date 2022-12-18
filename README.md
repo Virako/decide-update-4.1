@@ -72,10 +72,126 @@ base de datos que utilizaremos:
 
     ./manage.py migrate
 
+Creamos el superusuario, que será el administrador del sistema. Con este usuario podremos tener acceso 
+a todas las funcionalidades ofrecidas por Decide, como por ejemplo crear usuarios. El comando es el 
+siguiente:
+
+    ./manage.py createsuperuser
+
 Por último, ya podremos ejecutar el módulos o módulos seleccionados en la configuración de la
 siguiente manera:
 
     ./manage.py runserver
+
+Guía rápida
+-------------------
+
+Aclaración: En esta guía vamos a usar como url de base: "localhost:8000".
+
+### 1. Login como administrador del sistema
+
+Una vez iniciada la aplicación, accedemos a http://localhost:8000/admin/ e ingresamos las credenciales 
+del super usuario creado anteriormente.
+
+![Imagen 01: Login](./resources/quickstart/00_login.png)
+
+Si nos hemos conectado con éxito como un administrador, nos debería aparecer la siguiente vista:
+
+![Imagen 02: Menu](./resources/quickstart/01_menu.png)
+
+### 2. Creación de questions
+
+Buscamos el botón "add" dentro del apartado "questions" de la categoría "voting". En el textarea 
+etiquetado como "Desc" se añade la pregunta a realizar en la futura votación. Después en los
+apartados de "question options" añadimos todas las posibles respuestas a la pregunta definida 
+anteriormente. Estas "questions options" se pueden eliminar clickando a la "X" situada a la derecha y
+se pueden añadir mas opciones pulsando en "add questions options" situado mas abajo. 
+
+No es necesario rellenar todas las "question options" que aparezcan en la vista. Una vez tengamos 
+todas las posibles respuestas que deseamos podemos guardar haciendo click en el botón "Save".
+
+![Imagen 03: Questions](./resources/quickstart/02_question.png)
+
+### 3. Creación de votings
+
+Hacemos click al botón "add" dentro de "Votings" en la categoría "Voting" y nos aparecerá el formulario
+de creacion de votaciones.
+
+En dicho formulario le ponemos un nombre a la votación, la descripción es opcional, en el desplegable
+"question" nos debe aparecer la pregunta generada en el apartado anterior de esta guía y la 
+seleccionamos. 
+
+![Imagen 04: Voting](./resources/quickstart/03_voting.png)
+
+En el apartado "Auths" de su primera votación deberá crear uno. Para ello, debe clickar en el "+" a la 
+derecha de la lista de "Auths". Aparecerá una ventana nueva donde deberá rellenar un formulario con el
+nombre que desee y la url, en nuestro caso es "http://localhost:8000".
+
+![Imagen 05: Auth](./resources/quickstart/04_auth.png)
+
+Pulsamos en el botón "Save" y ya tenemos nuestra votación creada.
+
+### 4. Creacion de census
+
+En "votings" buscamos la votación que hemos generado y entramos en ella para mirar en la barra de 
+direcciones la id de nuestra votación. En el siguiente ejemplo, la id es 19.
+
+    http://localhost:8000/admin/voting/voting/19/change/
+
+Nos dirigimos al apartado "censuss" en la categoría "census" y clickamos en "add". Ponemos la id de 
+nuestra votacion en "voting id" y en "voter id" ponemos la id del votante que queremos añadir. 
+
+NOTA: el administrador si es el primer usuario creado tendrá la id 1.
+
+![Imagen 06: Census](./resources/quickstart/05_census.png)
+
+### 5. Comenzar la votación
+
+Llegados a este punto necesitamos abrir una votación, para ello debemos marcar el checkbox a la 
+izquierda de nuestra votación. Una vez seleccionado, tenemos que ir al desplegable de "action",
+seleccionamos la opción "Start" y pulsamos en el boton "Go". Esperamos a que aparezca el "Start date" 
+y ya tendríamos la votación abierta y lista para votar. 
+
+![Imagen 07: Start voting](./resources/quickstart/06_start.png)
+
+### 6. Votar
+
+Para poder votar primero debemos ingresar en la barra de direcciones de nuestro navegador lo siguiente:
+
+    http://localhost:8000/booth/[id de la votación]/
+
+![Imagen 08: Booth](./resources/quickstart/07_booth.png)
+
+Una vez accedemos, debemos iniciar sesión con un usuario que esté incluido en el censo.
+
+Cuando nos aparezca la pregunta, ya podemos seleccionar la respuesta y guardarla como un voto. 
+Al confirmar el voto, nos aparecerá lo siguiente:
+
+![Imagen 09: Vote success](./resources/quickstart/08_voted.png)
+
+El mensaje de "Congratulations. Your vote has been sent" nos confirma que nuestro voto ha sido 
+registrado correctamente.
+
+### 7. Conteo de votos
+
+Nos dirigimos nuevamente al apartado "voting" desde nuestro perfil de administrador. Primero tenemos 
+que cerrar la votación, para ello seleccionamos el checkbox a la izquierda de nuestra votación
+marcamos "Stop" y pulsamos el botón "Go". Notará que en el apartado "End Date" ahora aparece
+la fecha actual, esto nos indica que la votación ha sido cerrada y está lista para el conteo.
+
+Una vez cerrada la votación, volvemos a seleccionar el checkbox de la izquierda de nuestra votación
+marcamos la opción "Tally" en el desplegable de "Actions" y pulsamos nuevamente en el botón "Go".
+
+![Imagen 10: Tally](./resources/quickstart/09_tally.png)
+
+### 8. Visualización de resultado
+
+Una vez tenemos la votación cerrada y con el conteo de votos realizado, ya podemos visualizar el
+resultado accediendo a la siguiente url:
+
+    http://localhost:8000/visualizer/[id de la votación]/
+
+![Imagen 11: Visualizer](./resources/quickstart/10_visualizer.png)
 
 Ejecutar con docker
 -------------------
