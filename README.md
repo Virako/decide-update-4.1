@@ -261,8 +261,12 @@ Lanzar una consola SQL:
 
     $ docker exec -ti decide_db ash -c "su - postgres -c 'psql postgres'"
 
-Ejecutar con vagrant + ansible
-------------------------------
+Ejecutar con vagrant + ansible (DEPRECATED)
+--------------------------------------------
+
+> **DEPRECATED:** La configuración de Vagrant usa `ubuntu/bionic64` (Ubuntu 18.04 EOL) con
+> Python 3.6, que es incompatible con la versión actual del proyecto (Python 3.12+).
+> Se recomienda usar Docker en su lugar.
 
 Existe una configuración de vagrant que crea una máquina virtual con todo
 lo necesario instalado y listo para funcionar. La configuración está en
@@ -463,8 +467,8 @@ Si se quieren añadir más casuística a la carga inicial, basta con editar el "
 la misma estructura que los datos contenidos en el mismo.
 
 
-Cabe añadir que previo a ejecutar ambos comandos, deberemos haber activado nuestro entorno de 
-Python 3.9.
+Cabe añadir que previo a ejecutar ambos comandos, deberemos haber activado nuestro entorno de
+Python 3.12.
 
 
 El archivo "populate.json" se ha generado manualmente con ayuda de la documentación encontrada en
@@ -485,9 +489,8 @@ versiones usadas actualmente se corresponden a las siguientes:
 * psycopg2 = 2.9.4
 * coverage = 6.5.0
 * jsonnet = 0.18.0
-* django-nose = 1.4.6
-* django-rest-swagger = 2.2.0
-* Python = 3.9
+* drf-spectacular = 0.29.0
+* Python = 3.12
 * Vue=3
 * Bootstrap=5.2
 * selenium = 4.7.2
