@@ -7,6 +7,5 @@ django-filter==22.1
 psycopg2==2.9.4
 coverage==6.5.0
 jsonnet==0.18.0
-django-nose==1.4.6
 drf-spectacular==0.29.0
 selenium==4.7.2
