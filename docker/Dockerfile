@@ -2,8 +2,8 @@ from python:3.12-alpine
 
 RUN apk add --no-cache postgresql-dev gcc libc-dev gcc g++ make libffi-dev python3-dev build-base
 
-RUN pip install gunicorn
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip==26.0.1
+RUN pip install gunicorn==25.0.3
 
 WORKDIR /app
 
