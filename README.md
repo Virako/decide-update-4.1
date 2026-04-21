@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/wadobo/decide.svg?branch=master)](https://travis-ci.com/wadobo/decide) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6a6e89e141b14761a19288a6b28db474)](https://www.codacy.com/gh/decide-update-4-1/decide-update-4.1/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=decide-update-4-1/decide-update-4.1&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/6a6e89e141b14761a19288a6b28db474)](https://www.codacy.com/gh/decide-update-4-1/decide-update-4.1/dashboard?utm_source=github.com&utm_medium=referral&utm_content=decide-update-4-1/decide-update-4.1&utm_campaign=Badge_Coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6a6e89e141b14761a19288a6b28db474)](https://www.codacy.com/gh/decide-update-4-1/decide-update-4.1/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=decide-update-4-1/decide-update-4.1&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/6a6e89e141b14761a19288a6b28db474)](https://www.codacy.com/gh/decide-update-4-1/decide-update-4.1/dashboard?utm_source=github.com&utm_medium=referral&utm_content=decide-update-4-1/decide-update-4.1&utm_campaign=Badge_Coverage)
 
 Plataforma voto electrónico educativa
 =====================================
@@ -222,7 +222,7 @@ para el servidor de base de datos, otro para el django y otro con un
 servidor web nginx para servir los ficheros estáticos y hacer de proxy al
 servidor django:
 
- * decide\_db
+ * decide\_db (PostgreSQL 14 con pgautoupgrade)
  * decide\_web
  * decide\_nginx
 
@@ -232,6 +232,11 @@ contenedores se pueden destruir sin miedo a perder datos:
 
  * decide\_db
  * decide\_static
+
+**Nota sobre la actualización de PostgreSQL:** Si vienes de una versión anterior con
+PostgreSQL 11, la imagen `pgautoupgrade` se encargará de migrar automáticamente los
+datos al formato de PostgreSQL 14 en el primer arranque. Este proceso puede tardar
+unos minutos dependiendo del tamaño de la base de datos.
 
 Se puede editar el fichero docker-settings.py para modificar el settings
 del proyecto django antes de crear las imágenes del contenedor.
@@ -261,8 +266,12 @@ Lanzar una consola SQL:
 
     $ docker exec -ti decide_db ash -c "su - postgres -c 'psql postgres'"
 
-Ejecutar con vagrant + ansible
-------------------------------
+Ejecutar con vagrant + ansible (DEPRECATED)
+--------------------------------------------
+
+> **DEPRECATED:** La configuración de Vagrant usa `ubuntu/bionic64` (Ubuntu 18.04 EOL) con
+> Python 3.6, que es incompatible con la versión actual del proyecto (Python 3.12+).
+> Se recomienda usar Docker en su lugar.
 
 Existe una configuración de vagrant que crea una máquina virtual con todo
 lo necesario instalado y listo para funcionar. La configuración está en
@@ -463,31 +472,31 @@ Si se quieren añadir más casuística a la carga inicial, basta con editar el "
 la misma estructura que los datos contenidos en el mismo.
 
 
-Cabe añadir que previo a ejecutar ambos comandos, deberemos haber activado nuestro entorno de 
-Python 3.9.
+Cabe añadir que previo a ejecutar ambos comandos, deberemos haber activado nuestro entorno de
+Python 3.12.
 
 
 El archivo "populate.json" se ha generado manualmente con ayuda de la documentación encontrada en
-[el siguiente portal web](https://docs.djangoproject.com/en/4.1/howto/initial-data/).
+[el siguiente portal web](https://docs.djangoproject.com/en/5.2/howto/initial-data/).
 
 Versiones actuales
 ------------------
 
-En las ultimas actualizaciones se han modificado las versiones usadas por la aplicación Decide. Las 
+En las ultimas actualizaciones se han modificado las versiones usadas por la aplicación Decide. Las
 versiones usadas actualmente se corresponden a las siguientes:
 
-* Django = 4.1
+* Django = 5.2
 * pycryptodome = 3.15.0
-* djangorestframework = 3.14.0
-* django-cors-headers = 3.13.0
-* requests = 2.28.1
-* django-filter = 22.1
-* psycopg2 = 2.9.4
-* coverage = 6.5.0
-* jsonnet = 0.18.0
-* django-nose = 1.4.6
-* django-rest-swagger = 2.2.0
-* Python = 3.9
-* Vue=3
-* Bootstrap=5.2
-* selenium = 4.7.2
+* djangorestframework = 3.15.2
+* django-cors-headers = 4.6.0
+* requests = 2.32.3
+* django-filter = 24.3
+* psycopg2 = 2.9.10
+* coverage = 7.6.10
+* jsonnet = 0.20.0
+* drf-spectacular = 0.29.0
+* Python = 3.12
+* Vue = 3
+* Bootstrap = 5.2
+* selenium = 4.27.1
+* PostgreSQL >= 14
