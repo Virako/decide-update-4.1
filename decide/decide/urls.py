@@ -16,14 +16,12 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_swagger.views import get_swagger_view
-
-
-schema_view = get_swagger_view(title='Decide API')
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('doc/', schema_view),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('doc/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('gateway/', include('gateway.urls')),
 ]
 
