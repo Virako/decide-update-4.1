@@ -233,13 +233,20 @@ contenedores se pueden destruir sin miedo a perder datos:
  * decide\_db
  * decide\_static
 
-Se puede editar el fichero docker-settings.py para modificar el settings
-del proyecto django antes de crear las imágenes del contenedor.
+La configuración se realiza mediante variables de entorno. Copiar los
+ficheros de ejemplo y editarlos según sea necesario:
+
+    $ cd docker
+    $ cp .env.decide.example .env.decide
+    $ cp .env.postgres.example .env.postgres
 
 Crear imágenes y lanzar contenedores:
 
-    $ cd docker
     $ docker-compose up -d
+
+Generar ficheros estáticos (solo si es necesario):
+
+    $ docker exec -ti decide_web ./manage.py collectstatic
 
 Parar contenedores:
 
